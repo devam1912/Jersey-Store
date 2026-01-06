@@ -2,45 +2,49 @@ import mongoose from "mongoose";
 import validator from "validator";
 
 const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-      validate: {
-        validator: validator.isEmail,
-        message: "Please provide a valid email",
-      },
-    },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+            validate: {
+                validator: validator.isEmail,
+                message: "Please provide a valid email",
+            },
+        },
 
-    password: {
-      type: String,
-      required: true,
-      minlength: [8, "Password must be at least 8 characters"],
-      select: false,
-    },
+        password: {
+            type: String,
+            required: true,
+            minlength: [8, "Password must be at least 8 characters"],
+            select: false,
+        },
 
-    role: {
-      type: String,
-      enum: ["customer", "shopkeeper", "admin"],
-      required: true,
-    },
+        role: {
+            type: String,
+            enum: ["customer", "shopkeeper", "admin"],
+            required: true,
+        },
 
-    status: {
-      type: String,
-      enum: ["pending", "active", "blocked"],
-      default: "pending",
+        status: {
+            type: String,
+            enum: ["pending", "active", "blocked"],
+            default: "pending",
+        },
+        refreshToken: {
+            type: String
+        }
+
     },
-  },
-  { timestamps: true }
+    { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);
