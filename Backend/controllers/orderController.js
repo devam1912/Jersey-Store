@@ -48,6 +48,7 @@ export const createOrder = async (req, res) => {
       shopkeeper: shopkeeperId,
       totalAmount,
       deliveryAddress,
+      paymentStatus: "paid", // ✅ MOCK PAYMENT SUCCESS
     });
 
     for (const item of orderItems) {
