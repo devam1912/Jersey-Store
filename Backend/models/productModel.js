@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema(
 
     images: [
       {
-        type: String, 
+        type: String,
       },
     ],
 
@@ -53,6 +53,18 @@ const productSchema = new mongoose.Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    avgRating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
+
   },
   { timestamps: true }
 );

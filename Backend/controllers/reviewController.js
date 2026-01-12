@@ -46,12 +46,24 @@ export const createReview = async (req, res) => {
     }
 
     const review = await Review.create({
-      product: productId,
-      user: req.user.id,
-      order: orderId,
-      rating,
-      comment,
-    });
+  product: productId,
+  user: req.user.id,
+  order: orderId,
+  rating,
+  comment,
+});
+
+// Recalculate product rating
+const reviews = await Review.find({ product: productId });
+
+const numReviews = reviews.length;
+const avgRating =
+  reviews.reduce((sum, r) => sum + r.rating, 0) / numReviews;
+
+await Product.findByIdAndUpdate(productId, {
+  avgRating: avgRating.toFixed(1),
+  numReviews,
+});
 
     return res.status(201).json(review);
   } catch (error) {

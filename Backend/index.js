@@ -8,7 +8,7 @@ import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
-
+import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 dotenv.config();
 
 const app = express();
@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 9000;
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
-
+app.use(notFound);
+app.use(errorHandler);
 app.get("/api/health", (req, res) => {
   res.status(200).json({ message: "API running" });
 });
